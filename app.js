@@ -5,23 +5,16 @@ import 'dotenv/config'
 import pkg from 'pg'
 const {Client} = pkg;
 
+import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
+
 const app = express()
 const PORT = 8000
 
-
-
-app.get('/', (req, res) => {
-  res.send('Hello World')
-})
-
-app.get('/about', (req, res) => {
-  res.send('About route 🎉 ')
-})
-
-app.get('/canciones', async (req, res) => {
+app.get('/cancion', async (req, res) => {
   const client = new Client(config);
   await client.connect();
-  let result = await client.query("select * from public.canciones");
+  let result = await client.query("select * from public.cancion");
   await client.end();
   console.log(result.rows);
   res.send(result.rows)
